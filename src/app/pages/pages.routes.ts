@@ -1,3 +1,4 @@
+import { LoginGuardGuard } from '../services/service.index';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
@@ -8,7 +9,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { Graficas1Component } from './graficas1/graficas1.component';
 
 const pagesRoutes: Routes = [
-    { path: '', component: PagesComponent, children:[
+    { path: '', component: PagesComponent, canActivate:[LoginGuardGuard], children:[
             { path: 'dashboard', component: DashboardComponent, data: {titulo:'Dashboard', descripcion: 'Uso para interaccion de la pagina y sus componentes del usuario.' } },
             { path: 'progress', component: ProgressComponent, data: {titulo: 'Progresos', descripcion: 'Barras de progreso e interactividad' } },
             { path: 'graficas1', component: Graficas1Component, data: {titulo: 'Porcentajes', descripcion: 'Muestreo de graficas' } },
