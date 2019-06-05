@@ -1,0 +1,76 @@
+<div class="row animated fadeIn">
+<div class="col-12">
+  <div class="card">
+    <div class="card-body">
+
+      <h4 class="card-title">Busqueda de usuarios:</h4>
+      <input type="text" class="form-control" placeholder="Buscar Usuario" #input (keyup)="buscarUsuario(input.value)" >
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando" >
+  <div class="col-sm-12">
+    <div class="text-center">
+      <strong><i>Cargando</i></strong>
+      <p style="margin: 0; padding: 0;"></p>
+      <div class="lds-facebook"><div></div><div></div><div></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+<div class="col-12">
+  <div class="card">
+    <div class="card-body">
+
+      <h4 class="card-title">Usuarios Registrados ( <small>{{totalRegistros}}</small> ) </h4>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Auth</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios" >
+            <td style="width: 70px;"><img (click)="mostrarModal(usuario._id)" [src]="usuario.img | imagen" alt="User" class="img-users img-circle pointer"></td>
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.email}}</td>
+          <!--   <td>{{usuario.role}}</td> -->
+            <select name="role" class="form-control m-2" [(ngModel)]="usuario.role" >
+              <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+              <option value="USER_ROLE">USER_ROLE</option>
+            </select>
+            <td>
+              <label *ngIf="usuario.google"  for="" class="label label-danger m-2">Google</label>
+              <label *ngIf="!usuario.google"  for="" class="label label-info">Normal</label>
+            </td>
+            <td>
+              <a class="btn btn-outline-info" (click)="guardarUsuario(usuario)">
+                <i class="fa fa-save"></i>
+              </a>
+              <a (click)="borrarUsuario(usuario);" class="btn btn-outline-danger m-2" >
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a (click)="cambiarDesde(-5);" class="btn btn-outline-secondary   float-left">
+        <i class="fa fa-chevron-left"></i>
+        Atras
+      </a>
+      <a (click)="cambiarDesde(+5);"  class="btn btn-outline-secondary  float-right">
+        Siguiente
+        <i class="fa fa-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+</div>
